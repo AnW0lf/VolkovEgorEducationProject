@@ -1,4 +1,4 @@
-package Project_1;
+package SecondSemestr.Project_1;
 
 import java.util.LinkedList;
 
