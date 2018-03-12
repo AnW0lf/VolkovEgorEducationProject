@@ -1,4 +1,4 @@
-package SecondSemestr.Project_1;
+package task1;
 
 public class Node<I> {
     private I item;
