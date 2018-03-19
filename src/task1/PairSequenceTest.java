@@ -2,8 +2,7 @@ package task1;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PairSequenceTest {
     private PairSequence ps;
@@ -11,7 +10,7 @@ public class PairSequenceTest {
     @Test
     public void createEmpty() {
         ps = new PairSequence();
-        assertEquals("[]", ps.toString());
+        assertEquals("{}", ps.toString());
     }
 
     @Test
@@ -23,14 +22,14 @@ public class PairSequenceTest {
         ps = new PairSequence();
         ps.add(x1, y1);
         ps.add(x2, y2);
-        assertEquals("[3.0=4.0, 1.0=2.0]", ps.toString());
+        assertEquals("{1.0=2.0, 3.0=4.0}", ps.toString());
     }
 
     @Test
     public void removeEmpty() {
         ps = new PairSequence();
         ps.remove(1.0);
-        assertEquals("[]", ps.toString());
+        assertEquals("{}", ps.toString());
     }
 
     @Test
@@ -40,7 +39,7 @@ public class PairSequenceTest {
         ps = new PairSequence();
         ps.add(x, y);
         ps.remove(1.0);
-        assertEquals("[]", ps.toString());
+        assertEquals("{}", ps.toString());
     }
 
     @Test
@@ -53,7 +52,7 @@ public class PairSequenceTest {
         ps.add(x1, y1);
         ps.add(x2, y2);
         ps.remove(1.0);
-        assertEquals("[2.0=3.0]", ps.toString());
+        assertEquals("{3.0=4.0}", ps.toString());
     }
 
     @Test
@@ -114,7 +113,7 @@ public class PairSequenceTest {
         ps = new PairSequence();
         ps.add(x1, y1);
         ps.add(x2, y2);
-        assertTrue(ps.searchClosed(10.0) == y2);
+        assertEquals((Double) y2, ps.searchClosed(10.0));
     }
 
     @Test
@@ -126,7 +125,7 @@ public class PairSequenceTest {
         ps = new PairSequence();
         ps.add(x1, y1);
         ps.add(x2, y2);
-        assertTrue(ps.searchClosed(x1) == y1);
+        assertEquals((Double) y1, ps.searchClosed(x1));
     }
 
     @Test

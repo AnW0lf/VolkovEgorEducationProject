@@ -69,7 +69,7 @@ public class PairSequence {
         if (x >= max()) return max();
         if (x <= min()) return min();
         double distance = Math.abs(max() - min());
-        double result = (Double) map.keySet().toArray()[0];
+        double result = (Double) map.values().toArray()[0];
         for (Double key : map.keySet()) {
             if (Math.abs(key - x) < distance) {
                 distance = Math.abs(key - x);
@@ -83,26 +83,14 @@ public class PairSequence {
      * @return pair with min first element or null (if sequence is empty)
      */
     public Double min() {
-        if (map.size() == 0) return null;
-        double min = (Double) map.keySet().toArray()[0];
-        for (Double key : map.keySet()) {
-            if (min > key)
-                min = key;
-        }
-        return min;
+        return (Double) map.values().toArray()[0];
     }
 
     /**
      * @return pair with max first element or null (if sequence is empty)
      */
     public Double max() {
-        if (map.size() == 0) return null;
-        double max = (Double) map.keySet().toArray()[0];
-        for (Double key : map.keySet()) {
-            if (max > key)
-                max = key;
-        }
-        return max;
+        return (Double) map.values().toArray()[map.size() - 1];
     }
 
     /**
@@ -117,13 +105,13 @@ public class PairSequence {
         int size = list.size();
 
         for (int i = 0; i < size; i++) {
-            double basicsPolynom = 1.0;
+            double basicsPolynomial = 1.0;
             for (int j = 0; j < size; j++) {
                 if (j != i) {
-                    basicsPolynom *= (x - list.get(j).getKey()) / (list.get(i).getKey() - list.get(j).getKey());
+                    basicsPolynomial *= (x - list.get(j).getKey()) / (list.get(i).getKey() - list.get(j).getKey());
                 }
             }
-            result += basicsPolynom * list.get(i).getValue();
+            result += basicsPolynomial * list.get(i).getValue();
         }
         return result;
     }
@@ -140,6 +128,6 @@ public class PairSequence {
 
     @Override
     public String toString() {
-        return toLinkedList().toString();
+        return map.toString();
     }
 }
