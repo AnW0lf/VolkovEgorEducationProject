@@ -1,23 +1,24 @@
 package task1;
 
-import javafx.util.Pair;
-
-import java.util.LinkedList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class PairSequence {
     private TreeMap<Double, Double> map;
 
+    /**
+     * Empty constructor
+     */
     public PairSequence() {
         map = new TreeMap<>();
     }
 
     /**
-     * add pair to the beginning of the sequence
+     * Add coordinates to the sequence
      *
-     * @param x first element of pair
-     * @param y second element of pair
+     * @param x first coordinate
+     * @param y second coordinate
      */
     public void add(double x, double y) {
         if (!map.containsKey(x))
@@ -25,9 +26,9 @@ public class PairSequence {
     }
 
     /**
-     * remove pair (if it contains) by first element of pair
+     * remove coordinates (if it contains) by x coordinate
      *
-     * @param x first element of pair
+     * @param x first coordinate
      */
     public void remove(double x) {
         if (map.containsKey(x))
@@ -35,9 +36,9 @@ public class PairSequence {
     }
 
     /**
-     * return pair by first element of pair
+     * return y coordinate by x coordinate
      *
-     * @param x first element of pair
+     * @param x first coordinate
      * @return searched pair or null (if it not contains)
      */
     public Double search(double x) {
@@ -47,11 +48,11 @@ public class PairSequence {
     }
 
     /**
-     * return pair by first element of pair
+     * return y coordinate by x coordinate or default value (def)
      *
-     * @param x   first element of pair
-     * @param def default pair
-     * @return searched pair or default pair (if searched not contains)
+     * @param x   first coordinate
+     * @param def default value
+     * @return searched y coordinate or default value (def) (if searched not contains)
      */
     public Double searchOrDefault(double x, double def) {
         if (map.containsKey(x))
@@ -60,10 +61,10 @@ public class PairSequence {
     }
 
     /**
-     * search closed pair by first element of pair
+     * search closed y coordinate by x coordinate
      *
-     * @param x first element of pair
-     * @return closed pair or null (if sequence is empty)
+     * @param x first coordinate
+     * @return closed y coordinate or null (if sequence is empty)
      */
     public Double searchClosed(double x) {
         if (x >= map.lastKey()) return map.lastEntry().getValue();
@@ -82,38 +83,30 @@ public class PairSequence {
     /**
      * interpolate the function by the Lagrange method
      *
-     * @param x first element of searched pair
+     * @param x first coordinate of searched ones
      * @return approximate value of the function
      */
     public double interpolate(double x) {
         double result = 0;
-        LinkedList<Pair<Double, Double>> list = toLinkedList();
-        int size = list.size();
 
-        for (int i = 0; i < size; i++) {
+        for (Map.Entry<Double, Double> iEntry : map.entrySet()) {
             double basicsPolynomial = 1.0;
-            for (int j = 0; j < size; j++) {
-                if (j != i) {
-                    basicsPolynomial *= (x - list.get(j).getKey()) / (list.get(i).getKey() - list.get(j).getKey());
+            for (Map.Entry<Double, Double> jEntry : map.entrySet()) {
+                if (!Objects.equals(jEntry.getKey(), iEntry.getKey())){
+                    basicsPolynomial *= (x - jEntry.getKey()) / (iEntry.getKey() - jEntry.getKey());
                 }
             }
-            result += basicsPolynomial * list.get(i).getValue();
+            result += basicsPolynomial * iEntry.getValue();
         }
         return result;
     }
 
-    /**
-     * @return sequence as LinkedList
-     */
-    private LinkedList<Pair<Double, Double>> toLinkedList() {
-        LinkedList<Pair<Double, Double>> list = new LinkedList();
-        for (Double key : map.keySet())
-            list.add(new Pair(key, map.get(key)));
-        return list;
-    }
-
     @Override
     public String toString() {
-        return map.toString();
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Double,Double> entry: map.entrySet()) {
+            sb.append(String.format("(%f, %f)\n", entry.getKey(), entry.getValue()));
+        }
+        return sb.toString();
     }
 }
