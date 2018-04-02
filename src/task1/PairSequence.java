@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class PairSequence {
-    private Map<Double, Double> map;
+    private TreeMap<Double, Double> map;
 
     public PairSequence() {
-        map = new TreeMap();
+        map = new TreeMap<>();
     }
 
     /**
@@ -66,9 +66,9 @@ public class PairSequence {
      * @return closed pair or null (if sequence is empty)
      */
     public Double searchClosed(double x) {
-        if (x >= max()) return max();
-        if (x <= min()) return min();
-        double distance = Math.abs(max() - min());
+        if (x >= map.lastKey()) return map.lastEntry().getValue();
+        if (x <= map.firstKey()) return map.firstEntry().getValue();
+        double distance = Math.abs(map.lastKey() - map.firstKey());
         double result = (Double) map.values().toArray()[0];
         for (Double key : map.keySet()) {
             if (Math.abs(key - x) < distance) {
@@ -77,20 +77,6 @@ public class PairSequence {
             }
         }
         return result;
-    }
-
-    /**
-     * @return pair with min first element or null (if sequence is empty)
-     */
-    public Double min() {
-        return (Double) map.values().toArray()[0];
-    }
-
-    /**
-     * @return pair with max first element or null (if sequence is empty)
-     */
-    public Double max() {
-        return (Double) map.values().toArray()[map.size() - 1];
     }
 
     /**
@@ -119,7 +105,7 @@ public class PairSequence {
     /**
      * @return sequence as LinkedList
      */
-    public LinkedList<Pair<Double, Double>> toLinkedList() {
+    private LinkedList<Pair<Double, Double>> toLinkedList() {
         LinkedList<Pair<Double, Double>> list = new LinkedList();
         for (Double key : map.keySet())
             list.add(new Pair(key, map.get(key)));

@@ -1,20 +1,21 @@
-package task1;
+package test;
 
 import org.junit.jupiter.api.Test;
+import task1.PairSequence;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PairSequenceTest {
+class PairSequenceTest {
     private PairSequence ps;
 
     @Test
-    public void createEmpty() {
+    void createEmpty() {
         ps = new PairSequence();
         assertEquals("{}", ps.toString());
     }
 
     @Test
-    public void addCoordinate() {
+    void addCoordinate() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -26,14 +27,14 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void removeEmpty() {
+    void removeEmpty() {
         ps = new PairSequence();
         ps.remove(1.0);
         assertEquals("{}", ps.toString());
     }
 
     @Test
-    public void removeOne() {
+    void removeOne() {
         double x = 1.0;
         double y = 2.0;
         ps = new PairSequence();
@@ -43,7 +44,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -56,7 +57,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void searchNotExists() {
+    void searchNotExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -68,7 +69,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void searchExists() {
+    void searchExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -80,7 +81,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void searchOrDefaultNotExists() {
+    void searchOrDefaultNotExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -93,7 +94,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void searchOrDefaultExists() {
+    void searchOrDefaultExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -105,7 +106,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void searchClosedNotExists() {
+    void searchClosedNotExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -117,7 +118,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void searchClosedExists() {
+    void searchClosedExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 3.0;
@@ -129,7 +130,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void interpolateNotExists() {
+    void interpolateNotExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 2.0;
@@ -144,7 +145,7 @@ public class PairSequenceTest {
     }
 
     @Test
-    public void interpolateExists() {
+    void interpolateExists() {
         double x1 = 1.0;
         double y1 = 2.0;
         double x2 = 2.0;
@@ -157,5 +158,4 @@ public class PairSequenceTest {
         ps.add(x3, y3);
         assertTrue(ps.searchClosed(x2) == y2);
     }
-
 }
