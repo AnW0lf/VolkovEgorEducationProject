@@ -1,4 +1,4 @@
-package task2;
+package org.spbstu.volkovem.task2;
 
 import java.util.LinkedList;
 

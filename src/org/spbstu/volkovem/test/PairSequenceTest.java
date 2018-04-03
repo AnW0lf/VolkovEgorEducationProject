@@ -1,7 +1,7 @@
-package test;
+package org.spbstu.volkovem.test;
 
 import org.junit.jupiter.api.Test;
-import task1.PairSequence;
+import org.spbstu.volkovem.task1.PairSequence;
 
 import static org.junit.jupiter.api.Assertions.*;
 

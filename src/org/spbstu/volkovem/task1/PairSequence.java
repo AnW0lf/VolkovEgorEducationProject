@@ -1,4 +1,4 @@
-package task1;
+package org.spbstu.volkovem.task1;
 
 import java.util.Map;
 import java.util.Objects;

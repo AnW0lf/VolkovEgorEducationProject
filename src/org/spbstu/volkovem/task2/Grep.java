@@ -1,24 +1,23 @@
-package task2;
-
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+package org.spbstu.volkovem.task2;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Grep {
 
-    String fileName;
-    String word = "";
-    boolean regex = false;
-    boolean invert = false;
-    boolean ignoreRegister = false;
+    private String fileName;
+    private String word = "";
+    private boolean regex = false;
+    private boolean invert = false;
+    private boolean ignoreRegister = false;
 
-    public Grep(String[] commands) {
+    Grep(String[] commands) {
         for (String command : commands) {
-            if(command == "null") continue;
+            if(Objects.equals(command, "null")) continue;
             switch (command) {
                 case "[-r]":
                     regex = true;
@@ -33,7 +32,7 @@ public class Grep {
                     Pattern pattern = Pattern.compile("^.+\\.txt$");
                     Matcher matcher = pattern.matcher(command);
                     if (matcher.matches()) fileName = command;
-                    else if (word == "") word = command;
+                    else if (Objects.equals(word, "")) word = command;
                     else word += " " + command;
                     break;
             }
@@ -54,12 +53,12 @@ public class Grep {
         }
     }
 
-    public LinkedList<String> search() {
+    LinkedList<String> search() {
         LinkedList<String> result = new LinkedList<>();
         String content = read();
 
-        String patternString = regex ? word: "(\\Q" + word + "\\E)";
-        if (ignoreRegister) patternString = "(?i)" + patternString;
+        String patternString = regex ? word: String.format("(\\Q%s\\E)", word);
+        if (ignoreRegister) patternString = String.format("(?i)%s", patternString);
         Pattern pattern = Pattern.compile(patternString);
         Matcher matcher = pattern.matcher(content);
         while (matcher.find()) {
@@ -71,12 +70,10 @@ public class Grep {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("File Path: " + fileName + "\n");
-        sb.append("Word/Pattern: " + word + "\n");
-        sb.append("Regex: " + regex + "\n");
-        sb.append("Invert: " + invert + "\n");
-        sb.append("Ignore Register: " + ignoreRegister + "\n");
-        return sb.toString();
+        return "File Path: " + fileName + "\n" +
+                "Word/Pattern: " + word + "\n" +
+                "Regex: " + regex + "\n" +
+                "Invert: " + invert + "\n" +
+                "Ignore Register: " + ignoreRegister + "\n";
     }
 }
