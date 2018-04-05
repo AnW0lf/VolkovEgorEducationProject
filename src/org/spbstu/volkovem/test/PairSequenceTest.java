@@ -106,6 +106,13 @@ class PairSequenceTest {
     }
 
     @Test
+    void searchClosedEmpty() {
+        double x = 1.0;
+        ps = new PairSequence();
+        assertEquals(0d, (double) ps.searchClosed(x));
+    }
+
+    @Test
     void searchClosedNotExists() {
         double x1 = 1.0;
         double y1 = 2.0;
@@ -114,7 +121,7 @@ class PairSequenceTest {
         ps = new PairSequence();
         ps.add(x1, y1);
         ps.add(x2, y2);
-        assertEquals((Double) y2, ps.searchClosed(10.0));
+        assertEquals((Double) y2, ps.searchClosed(10));
     }
 
     @Test

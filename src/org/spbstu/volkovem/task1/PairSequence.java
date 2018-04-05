@@ -67,17 +67,12 @@ public class PairSequence {
      * @return closed y coordinate or null (if sequence is empty)
      */
     public Double searchClosed(double x) {
+        if (map.isEmpty()) return .0d;
         if (x >= map.lastKey()) return map.lastEntry().getValue();
         if (x <= map.firstKey()) return map.firstEntry().getValue();
-        double distance = Math.abs(map.lastKey() - map.firstKey());
-        double result = (Double) map.values().toArray()[0];
-        for (Double key : map.keySet()) {
-            if (Math.abs(key - x) < distance) {
-                distance = Math.abs(key - x);
-                result = map.get(key);
-            }
-        }
-        return result;
+        double floor = map.floorKey(x);
+        double ceiling = map.ceilingKey(x);
+        return Math.abs(floor - x) < Math.abs(ceiling - x) ? map.get(floor) : map.get(ceiling);
     }
 
     /**
