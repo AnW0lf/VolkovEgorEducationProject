@@ -52,8 +52,13 @@ public class Grep {
         Pattern pattern = Pattern.compile(patternString);
         for (String line : lines) {
             Matcher matcher = pattern.matcher(line);
-            if ((matcher.find() && !invert) || (!matcher.find() && invert)) {
-                result.add(line);
+            if(invert) {
+                if(!matcher.find())
+                    result.add(line);
+            }
+            else {
+                if(matcher.find())
+                    result.add(line);
             }
         }
         if (result.isEmpty()) result.add("Not found...");
