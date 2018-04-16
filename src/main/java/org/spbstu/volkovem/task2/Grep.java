@@ -28,8 +28,7 @@ public class Grep {
     }
 
     public void run() throws FileNotFoundException {
-        File input = new File(fileName);
-        ArrayList<String> lines = read(input);
+        ArrayList<String> lines = read();
         list = search(lines);
     }
 
@@ -37,14 +36,14 @@ public class Grep {
         return new ArrayList<>(list);
     }
 
-    private ArrayList<String> read(File file) throws FileNotFoundException {
+    public ArrayList<String> read() throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
         ArrayList<String> result = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(file));
         reader.lines().filter(s -> !s.isEmpty()).forEachOrdered(result::add);
         return result;
     }
 
-    private ArrayList<String> search(ArrayList<String> lines) {
+    public ArrayList<String> search(ArrayList<String> lines) {
         ArrayList<String> result = new ArrayList<>();
 
         String patternString = isRegex ? regex : String.format("(\\Q%s\\E)", regex);
