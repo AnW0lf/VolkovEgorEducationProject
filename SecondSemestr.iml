@@ -30,10 +30,9 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="JUnit5">
+      <library>
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/junit/lib/junit-jupiter-api-5.0.0.jar!/" />
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/junit/lib/opentest4j-1.0.0.jar!/" />
+          <root url="jar://C:/Program Files/Java/commons-cli-1.4/commons-cli-1.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
