@@ -24,20 +24,18 @@ public class Application {
         CommandLine lines = parser.parse(options, args);
 
         String word = args[args.length - 2];
-        String fileName = args[args.length - 1];
+        String filePath = args[args.length - 1];
 
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         if (lines.hasOption("v")) System.out.println("Инвертирование условия.");
         if (lines.hasOption("i")) System.out.println("Игнорирование регистров слов.");
         if (lines.hasOption("r")) System.out.println("Вместо слова задано регулярное выражение: " + word);
         else System.out.println("Задано слово для поиска: " + word);
-        System.out.println("Файл для чтения: " + fileName);
+        System.out.println("Файл для чтения: " + filePath);
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 
-        Grep grep = new Grep(fileName, word, lines.hasOption("r"), lines.hasOption("i"), lines.hasOption("v"));
-        grep.run();
-        
-        for (String line: grep.getResult()) {
+        Grep grep = new Grep(word, lines.hasOption("r"), lines.hasOption("i"), lines.hasOption("v"));
+        for (String line: grep.run(filePath)) {
             System.out.println(line);
         }
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");

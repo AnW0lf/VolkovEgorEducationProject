@@ -28,15 +28,15 @@ class GrepTest {
     void readExists() throws IOException {
         String path = "input.txt";
         createFileIfNotExists(path);
-        grep = new Grep(path, "", false, false, false);
-        assertFalse(grep.read().equals(null));
+        grep = new Grep("", false, false, false);
+        assertFalse(grep.read(new File(path)).equals(null));
     }
 
     @Test
     void readNotExists() {
         String emptyPath = "";
-        grep = new Grep(emptyPath, "", false, false, false);
-        assertThrows(FileNotFoundException.class, () -> grep.read());
+        grep = new Grep( "", false, false, false);
+        assertThrows(FileNotFoundException.class, () -> grep.read(new File(emptyPath)));
     }
 
     @Test
@@ -44,10 +44,10 @@ class GrepTest {
         String path = "input.txt";
         String word = "New";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, false, false, false);
+        grep = new Grep(word, false, false, false);
         ArrayList<String> expected = new ArrayList<>();
         expected.add("New file \"input.txt\"");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -55,10 +55,9 @@ class GrepTest {
         String path = "input.txt";
         String word = "QwErTy";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, false, false, false);
+        grep = new Grep(word, false, false, false);
         ArrayList<String> expected = new ArrayList<>();
-        expected.add("Not found...");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -66,10 +65,10 @@ class GrepTest {
         String path = "input.txt";
         String word = "new";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, false, true, false);
+        grep = new Grep(word, false, true, false);
         ArrayList<String> expected = new ArrayList<>();
         expected.add("New file \"input.txt\"");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -77,10 +76,9 @@ class GrepTest {
         String path = "input.txt";
         String word = "qweryutu";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, false, true, false);
+        grep = new Grep(word, false, true, false);
         ArrayList<String> expected = new ArrayList<>();
-        expected.add("Not found...");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -88,10 +86,10 @@ class GrepTest {
         String path = "input.txt";
         String word = "\"[\\w]+\\.[\\w]+\"";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, true, false, false);
+        grep = new Grep(word, true, false, false);
         ArrayList<String> expected = new ArrayList<>();
         expected.add("New file \"input.txt\"");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -99,10 +97,9 @@ class GrepTest {
         String path = "input.txt";
         String word = "\"[\\d]+\\.[\\d]+\"";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, true, false, false);
+        grep = new Grep(word, true, false, false);
         ArrayList<String> expected = new ArrayList<>();
-        expected.add("Not found...");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -110,10 +107,9 @@ class GrepTest {
         String path = "input.txt";
         String word = "New";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, false, false, true);
+        grep = new Grep(word, false, false, true);
         ArrayList<String> expected = new ArrayList<>();
-        expected.add("Not found...");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -121,10 +117,10 @@ class GrepTest {
         String path = "input.txt";
         String word = "QwErTy";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, false, false, true);
+        grep = new Grep(word, false, false, true);
         ArrayList<String> expected = new ArrayList<>();
         expected.add("New file \"input.txt\"");
-        assertEquals(expected, grep.search(grep.read()));
+        assertEquals(expected, grep.search(grep.read(new File(path))));
     }
 
     @Test
@@ -132,10 +128,9 @@ class GrepTest {
         String path = "input.txt";
         String word = "New";
         createFileIfNotExists(path);
-        grep = new Grep(path, word, false, false, false);
+        grep = new Grep(word, false, false, false);
         ArrayList<String> expected = new ArrayList<>();
         expected.add("New file \"input.txt\"");
-        grep.run();
-        assertEquals(expected, grep.getResult());
+        assertEquals(expected, grep.run(path));
     }
 }
