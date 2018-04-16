@@ -14,11 +14,11 @@ public class Grep {
     private String fileName, regex;
     private List<String> list;
 
-    public Grep(String fileName,
-                String regex,
-                boolean isRegex,
-                boolean ignoreRegister,
-                boolean invert) {
+    Grep(String fileName,
+         String regex,
+         boolean isRegex,
+         boolean ignoreRegister,
+         boolean invert) {
 
         this.isRegex = isRegex;
         this.ignoreRegister = ignoreRegister;
@@ -27,23 +27,23 @@ public class Grep {
         this.fileName = fileName;
     }
 
-    public void run() throws FileNotFoundException {
+    void run() throws FileNotFoundException {
         ArrayList<String> lines = read();
         list = search(lines);
     }
 
-    public ArrayList<String> getResult() {
+    ArrayList<String> getResult() {
         return new ArrayList<>(list);
     }
 
-    public ArrayList<String> read() throws FileNotFoundException {
+    ArrayList<String> read() throws FileNotFoundException {
         BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
         ArrayList<String> result = new ArrayList<>();
         reader.lines().filter(s -> !s.isEmpty()).forEachOrdered(result::add);
         return result;
     }
 
-    public ArrayList<String> search(ArrayList<String> lines) {
+    ArrayList<String> search(ArrayList<String> lines) {
         ArrayList<String> result = new ArrayList<>();
 
         String patternString = isRegex ? regex : String.format("(\\Q%s\\E)", regex);
