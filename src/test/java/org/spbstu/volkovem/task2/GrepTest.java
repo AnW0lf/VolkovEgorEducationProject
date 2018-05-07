@@ -28,14 +28,14 @@ class GrepTest {
     void readExists() throws IOException {
         String path = "input.txt";
         createFileIfNotExists(path);
-        grep = new Grep("", false, false, false);
-        assertFalse(grep.read(new File(path)).equals(null));
+        grep = new Grep("",  false, false, false);
+        assertFalse(grep.read(new File(path)) == null);
     }
 
     @Test
     void readNotExists() {
         String emptyPath = "";
-        grep = new Grep( "", false, false, false);
+        grep = new Grep("", false, false, false);
         assertThrows(FileNotFoundException.class, () -> grep.read(new File(emptyPath)));
     }
 
