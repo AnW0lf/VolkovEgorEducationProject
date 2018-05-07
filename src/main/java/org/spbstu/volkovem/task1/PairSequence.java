@@ -15,6 +15,13 @@ public class PairSequence {
     }
 
     /**
+     *
+     * @return count of contained points
+     */
+    public int size() {
+        return map.size();
+    }
+    /**
      * Add coordinates to the sequence
      *
      * @param x first coordinate

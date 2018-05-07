@@ -11,7 +11,7 @@ class PairSequenceTest {
     @Test
     void createEmpty() {
         ps = new PairSequence();
-        assertEquals("", ps.toString());
+        assertEquals(0, ps.size());
     }
 
     @Test
@@ -23,14 +23,14 @@ class PairSequenceTest {
         ps = new PairSequence();
         ps.add(x1, y1);
         ps.add(x2, y2);
-        assertEquals("(1,000000, 2,000000)\n(3,000000, 4,000000)\n", ps.toString());
+        assertEquals(2, ps.size());
     }
 
     @Test
     void removeEmpty() {
         ps = new PairSequence();
         ps.remove(1.0);
-        assertEquals("", ps.toString());
+        assertEquals(0, ps.size());
     }
 
     @Test
@@ -40,7 +40,7 @@ class PairSequenceTest {
         ps = new PairSequence();
         ps.add(x, y);
         ps.remove(1.0);
-        assertEquals("", ps.toString());
+        assertEquals(0, ps.size());
     }
 
     @Test
@@ -53,7 +53,7 @@ class PairSequenceTest {
         ps.add(x1, y1);
         ps.add(x2, y2);
         ps.remove(1.0);
-        assertEquals("(3,000000, 4,000000)\n", ps.toString());
+        assertEquals(1, ps.size());
     }
 
     @Test
