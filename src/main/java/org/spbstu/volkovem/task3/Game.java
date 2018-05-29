@@ -29,7 +29,7 @@ class Game extends JFrame {
         JLabel label = new JLabel(message);
         JButton reset = new JButton("Play");
         reset.addActionListener(new ActionStart());
-        panel.setLayout(new GridLayout(4, 3, 1, 1));
+        panel.setLayout(new GridLayout(2, 1));
         panel.add(label);
         panel.add(reset);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -79,7 +79,7 @@ class Game extends JFrame {
         JLabel label = new JLabel(message);
         JButton reset = new JButton("Play again");
         reset.addActionListener(new ActionReset());
-        panel.setLayout(new GridLayout(4, 3, 1, 1));
+        panel.setLayout(new GridLayout(2, 1));
         panel.add(label);
         panel.add(reset);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
