@@ -47,7 +47,7 @@ public class Field {
                 field[oldCoordinate.getKey()][oldCoordinate.getValue()];
         field[newCoordinate.getKey()][newCoordinate.getValue()].setCoordinate(newCoordinate);
         field[oldCoordinate.getKey()][oldCoordinate.getValue()] = null;
-        if(field[newCoordinate.getKey()][newCoordinate.getValue()].getClass().equals(Pawn.class)
+        if (field[newCoordinate.getKey()][newCoordinate.getValue()].getClass().equals(Pawn.class)
                 && (newCoordinate.getKey() == 0 || newCoordinate.getKey() == SIZE - 1))
             field[newCoordinate.getKey()][newCoordinate.getValue()] = new Queen(
                     field[newCoordinate.getKey()][newCoordinate.getValue()].coordinate,

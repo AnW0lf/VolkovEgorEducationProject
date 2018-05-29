@@ -14,6 +14,36 @@ public class King extends Piece {
 
     @Override
     public LinkedList<Pair<Integer, Integer>> movablePoints(Field field) {
-        return new LinkedList<>();
+        LinkedList<Pair<Integer, Integer>> points = new LinkedList<>();
+        points.addAll(checkPoint(field, 1, 1));
+        points.addAll(checkPoint(field, 1, -1));
+        points.addAll(checkPoint(field, -1, 1));
+        points.addAll(checkPoint(field, -1, -1));
+        points.addAll(checkPoint(field, 1, 0));
+        points.addAll(checkPoint(field, 0, 1));
+        points.addAll(checkPoint(field, -1, 0));
+        points.addAll(checkPoint(field, 0, -1));
+        return points;
+    }
+
+    @Override
+    public boolean isMovable(Field field) {
+        return !movablePoints(field).isEmpty();
+    }
+
+    private LinkedList<Pair<Integer, Integer>> checkPoint(Field field, int vertical, int horizontal) {
+        LinkedList<Pair<Integer, Integer>> points = new LinkedList<>();
+        Pair<Integer, Integer> point = new Pair<>(coordinate.getKey() + vertical, coordinate.getValue() + horizontal);
+        if (Field.inRange(point)) {
+            if (field.getSymbol(point).isEmpty())
+                points.add(point);
+            else {
+                if (!field.getSymbol(point).equals(King.SYMBOL_BLACK)
+                        && !field.getSymbol(point).equals(King.SYMBOL_WHITE)
+                        && !field.getColor(point, color).equals(color))
+                    points.add(point);
+            }
+        }
+        return points;
     }
 }
