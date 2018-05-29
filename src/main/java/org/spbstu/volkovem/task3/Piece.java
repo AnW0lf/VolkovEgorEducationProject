@@ -7,6 +7,7 @@ import java.util.LinkedList;
 public class Piece {
     protected Pair<Integer, Integer> coordinate;
     private String symbol;
+    int move = 0;
     Color color;
 
     Piece(String symbol, Pair<Integer, Integer> coordinate, Color color) {
@@ -17,6 +18,7 @@ public class Piece {
 
     public void setCoordinate(Pair<Integer, Integer> coordinate) {
         this.coordinate = coordinate;
+        move++;
     }
 
     public boolean isMovable(Field field) {

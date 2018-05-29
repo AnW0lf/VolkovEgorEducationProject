@@ -16,15 +16,21 @@ public class Pawn extends Piece {
     public LinkedList<Pair<Integer, Integer>> movablePoints(Field field) {
         LinkedList<Pair<Integer, Integer>> points = new LinkedList<>();
         Pair<Integer, Integer> movePoint;
+        Pair<Integer, Integer> firstMovePoint;
         Pair<Integer, Integer> capturePointRight;
         Pair<Integer, Integer> capturePointLeft;
         switch (color) {
             case WHITE:
                 movePoint = new Pair<>(coordinate.getKey() + 1, coordinate.getValue());
+                firstMovePoint = new Pair<>(coordinate.getKey() + 2, coordinate.getValue());
                 capturePointRight = new Pair<>(coordinate.getKey() + 1, coordinate.getValue() + 1);
                 capturePointLeft = new Pair<>(coordinate.getKey() + 1, coordinate.getValue() - 1);
                 if (Field.inRange(movePoint) && field.getSymbol(movePoint).isEmpty())
+                {
                     points.add(movePoint);
+                    if (move == 0 && Field.inRange(firstMovePoint) && field.getSymbol(firstMovePoint).isEmpty())
+                        points.add(firstMovePoint);
+                }
                 if (Field.inRange(capturePointRight)
                         && !field.getSymbol(capturePointRight).isEmpty()
                         && !field.getColor(capturePointRight, color).equals(color))
@@ -36,10 +42,15 @@ public class Pawn extends Piece {
                 break;
             case BLACK:
                 movePoint = new Pair<>(coordinate.getKey() - 1, coordinate.getValue());
+                firstMovePoint = new Pair<>(coordinate.getKey() - 2, coordinate.getValue());
                 capturePointRight = new Pair<>(coordinate.getKey() - 1, coordinate.getValue() + 1);
                 capturePointLeft = new Pair<>(coordinate.getKey() - 1, coordinate.getValue() - 1);
                 if (Field.inRange(movePoint) && field.getSymbol(movePoint).isEmpty())
+                {
                     points.add(movePoint);
+                    if (move == 0 && Field.inRange(firstMovePoint) && field.getSymbol(firstMovePoint).isEmpty())
+                        points.add(firstMovePoint);
+                }
                 if (Field.inRange(capturePointRight)
                         && !field.getSymbol(capturePointRight).isEmpty()
                         && !field.getColor(capturePointRight, color).equals(color))
