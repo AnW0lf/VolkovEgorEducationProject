@@ -6,10 +6,10 @@ import java.util.LinkedList;
 
 public class Piece {
     protected Pair<Integer, Integer> coordinate;
-    protected String symbol;
-    protected Color color;
+    private String symbol;
+    Color color;
 
-    public Piece(String symbol, Pair<Integer, Integer> coordinate, Color color) {
+    Piece(String symbol, Pair<Integer, Integer> coordinate, Color color) {
         this.coordinate = coordinate;
         this.symbol = symbol;
         this.color = color;

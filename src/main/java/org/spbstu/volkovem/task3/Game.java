@@ -13,17 +13,17 @@ public class Game extends JFrame {
     private static final String[] ALPHABET = {"A", "B", "C", "D", "E", "F", "G", "H"};
     private Field field;
     private JButton[][] buttons;
-    private JButton selectedButton;
+    private Piece.Color stage = Piece.Color.WHITE;
 
     public Game() {
         super("Chess - Game");
         field = new Field(this);
 
         createGameField();
-        updateField();
     }
 
-    private void createGameField() {
+    public void createGameField() {
+        stage = Piece.Color.WHITE;
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9, 9, 0, 0));
         buttons = new JButton[SIZE][SIZE];
@@ -53,6 +53,12 @@ public class Game extends JFrame {
         setSize(720, 720);
         setContentPane(panel);
         setVisible(true);
+        updateField();
+    }
+
+    public void nextStage() {
+        stage = stage == Piece.Color.WHITE ? Piece.Color.BLACK : Piece.Color.WHITE;
+        if(checkGameOver()) gameOver();
     }
 
     public void updateField() {
@@ -65,7 +71,7 @@ public class Game extends JFrame {
             for (int j = 0; j < 8; j++) {
                 String cell = field.getSymbol(new Pair<>(i, j));
                 buttons[i][j].setText(cell);
-                if (!cell.isEmpty() && field.checkCellMovable(new Pair<>(i, j))) {
+                if (!cell.isEmpty() && field.checkCellMovable(new Pair<>(i, j), stage)) {
                     buttons[i][j].setEnabled(true);
                 }
             }
@@ -96,6 +102,45 @@ public class Game extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             field.selection(coordinate);
+        }
+    }
+
+    private boolean checkGameOver() {
+        LinkedList<Pair<Integer, Integer>> movements = new LinkedList<>();
+        Pair<Integer, Integer> king = null;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                Pair<Integer, Integer> cell = new Pair<>(i, j);
+                if (!field.getSymbol(cell).isEmpty()) {
+                    if (field.getPieceClass(cell).equals(King.class) && !field.getColor(cell, stage).equals(stage))
+                        king = cell;
+                    else if (field.getColor(cell, stage).equals(stage))
+                        movements.addAll(field.getMovableCells(cell));
+                }
+            }
+        }
+        return movements.contains(king);
+    }
+
+    private void gameOver() {
+        JPanel panel = new JPanel();
+        String message = (stage == Piece.Color.WHITE ? "White": "Black") + " player wins";
+        JLabel label = new JLabel(message);
+        JButton reset = new JButton("Play again");
+        reset.addActionListener(new ActionReset());
+        panel.setLayout(new GridLayout(2, 1, 0, 0));
+        panel.add(label);
+        panel.add(reset);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(240, 240);
+        setContentPane(panel);
+        setVisible(true);
+    }
+
+    private class ActionReset implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            createGameField();
         }
     }
 }

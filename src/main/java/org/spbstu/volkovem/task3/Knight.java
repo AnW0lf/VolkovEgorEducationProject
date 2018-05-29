@@ -38,9 +38,7 @@ public class Knight extends Piece {
             if (field.getSymbol(point).isEmpty())
                 points.add(point);
             else {
-                if (!field.getSymbol(point).equals(King.SYMBOL_BLACK)
-                        && !field.getSymbol(point).equals(King.SYMBOL_WHITE)
-                        && !field.getColor(point, color).equals(color))
+                if (!field.getColor(point, color).equals(color))
                     points.add(point);
             }
         }

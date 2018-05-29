@@ -52,6 +52,7 @@ public class Field {
             field[newCoordinate.getKey()][newCoordinate.getValue()] = new Queen(
                     field[newCoordinate.getKey()][newCoordinate.getValue()].coordinate,
                     field[newCoordinate.getKey()][newCoordinate.getValue()].color);
+        game.nextStage();
     }
 
     public String getSymbol(Pair<Integer, Integer> coordinate) {
@@ -59,13 +60,18 @@ public class Field {
                 field[coordinate.getKey()][coordinate.getValue()].toString() : "";
     }
 
+    public Class getPieceClass(Pair<Integer, Integer> coordinate) {
+        return field[coordinate.getKey()][coordinate.getValue()].getClass();
+    }
+
     public Piece.Color getColor(Pair<Integer, Integer> coordinate, Piece.Color color) {
         return (inRange(coordinate) && field[coordinate.getKey()][coordinate.getValue()] != null) ?
                 field[coordinate.getKey()][coordinate.getValue()].color : color;
     }
 
-    public boolean checkCellMovable(Pair<Integer, Integer> coordinate) {
-        return field[coordinate.getKey()][coordinate.getValue()].isMovable(this);
+    public boolean checkCellMovable(Pair<Integer, Integer> coordinate, Piece.Color color) {
+        return field[coordinate.getKey()][coordinate.getValue()].isMovable(this)
+                && field[coordinate.getKey()][coordinate.getValue()].color.equals(color);
     }
 
     public LinkedList<Pair<Integer, Integer>> getMovableCells(Pair<Integer, Integer> coordinate) {

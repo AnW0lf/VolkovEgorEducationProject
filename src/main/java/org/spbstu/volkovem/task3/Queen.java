@@ -3,7 +3,6 @@ package org.spbstu.volkovem.task3;
 import javafx.util.Pair;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Queen extends Piece {
     private static final String SYMBOL_WHITE = "♕";
@@ -39,9 +38,7 @@ public class Queen extends Piece {
             if (field.getSymbol(point).isEmpty())
                 points.add(point);
             else {
-                if (!field.getSymbol(point).equals(King.SYMBOL_BLACK)
-                        && !field.getSymbol(point).equals(King.SYMBOL_WHITE)
-                        && !field.getColor(point, color).equals(color))
+                if (!field.getColor(point, color).equals(color))
                     points.add(point);
                 break;
             }
