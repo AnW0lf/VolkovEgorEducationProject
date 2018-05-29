@@ -16,8 +16,7 @@ class Game extends JFrame {
     private Piece.Color stage = Piece.Color.WHITE;
 
     Game() {
-        super("Chess - Game");
-        field = new Field(this);
+        super("Chess");
     }
 
     void start() {
@@ -25,6 +24,7 @@ class Game extends JFrame {
     }
 
     private void createGameField() {
+        field = new Field(this);
         stage = Piece.Color.WHITE;
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9, 9, 0, 0));
