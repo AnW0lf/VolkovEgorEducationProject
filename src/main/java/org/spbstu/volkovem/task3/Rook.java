@@ -8,7 +8,7 @@ public class Rook extends Piece {
     private static final String SYMBOL_WHITE = "♖";
     private static final String SYMBOL_BLACK = "♜";
 
-    public Rook(Pair<Integer, Integer> coordinate, Color color) {
+    Rook(Pair<Integer, Integer> coordinate, Color color) {
         super(color == Color.WHITE ? SYMBOL_WHITE : SYMBOL_BLACK, coordinate, color);
     }
 

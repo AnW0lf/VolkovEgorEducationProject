@@ -3,15 +3,14 @@ package org.spbstu.volkovem.task3;
 import javafx.util.Pair;
 
 import java.util.LinkedList;
-import java.util.List;
 
-public class Field {
+class Field {
     private static final int SIZE = 8;
     private Piece[][] field;
     private Game game;
     private Pair<Integer, Integer> selectedCoordinate = null;
 
-    public Field(Game game) {
+    Field(Game game) {
         this.game = game;
         field = new Piece[SIZE][SIZE];
         for (int i = 0; i < SIZE; i++) {
@@ -55,30 +54,30 @@ public class Field {
         game.nextStage();
     }
 
-    public String getSymbol(Pair<Integer, Integer> coordinate) {
+    String getSymbol(Pair<Integer, Integer> coordinate) {
         return (inRange(coordinate) && field[coordinate.getKey()][coordinate.getValue()] != null) ?
                 field[coordinate.getKey()][coordinate.getValue()].toString() : "";
     }
 
-    public Class getPieceClass(Pair<Integer, Integer> coordinate) {
+    Class getPieceClass(Pair<Integer, Integer> coordinate) {
         return field[coordinate.getKey()][coordinate.getValue()].getClass();
     }
 
-    public Piece.Color getColor(Pair<Integer, Integer> coordinate, Piece.Color color) {
+    Piece.Color getColor(Pair<Integer, Integer> coordinate, Piece.Color color) {
         return (inRange(coordinate) && field[coordinate.getKey()][coordinate.getValue()] != null) ?
                 field[coordinate.getKey()][coordinate.getValue()].color : color;
     }
 
-    public boolean checkCellMovable(Pair<Integer, Integer> coordinate, Piece.Color color) {
+    boolean checkCellMovable(Pair<Integer, Integer> coordinate, Piece.Color color) {
         return field[coordinate.getKey()][coordinate.getValue()].isMovable(this)
                 && field[coordinate.getKey()][coordinate.getValue()].color.equals(color);
     }
 
-    public LinkedList<Pair<Integer, Integer>> getMovableCells(Pair<Integer, Integer> coordinate) {
+    LinkedList<Pair<Integer, Integer>> getMovableCells(Pair<Integer, Integer> coordinate) {
         return field[coordinate.getKey()][coordinate.getValue()].movablePoints(this);
     }
 
-    public void selection(Pair<Integer, Integer> coordinate) {
+    void selection(Pair<Integer, Integer> coordinate) {
         if (selectedCoordinate == null) {
             selectedCoordinate = coordinate;
             LinkedList<Pair<Integer, Integer>> cells = getMovableCells(selectedCoordinate);
@@ -94,7 +93,7 @@ public class Field {
         }
     }
 
-    public static boolean inRange(Pair<Integer, Integer> coordinate) {
+    static boolean inRange(Pair<Integer, Integer> coordinate) {
         return coordinate.getKey() >= 0 && coordinate.getKey() < SIZE
                 && coordinate.getValue() >= 0 && coordinate.getValue() < SIZE;
     }

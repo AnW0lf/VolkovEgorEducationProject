@@ -8,21 +8,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-public class Game extends JFrame {
+class Game extends JFrame {
     private static final int SIZE = 8;
     private static final String[] ALPHABET = {"A", "B", "C", "D", "E", "F", "G", "H"};
     private Field field;
     private JButton[][] buttons;
     private Piece.Color stage = Piece.Color.WHITE;
 
-    public Game() {
+    Game() {
         super("Chess - Game");
         field = new Field(this);
+    }
 
+    void start() {
         createGameField();
     }
 
-    public void createGameField() {
+    private void createGameField() {
         stage = Piece.Color.WHITE;
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9, 9, 0, 0));
@@ -56,12 +58,12 @@ public class Game extends JFrame {
         updateField();
     }
 
-    public void nextStage() {
+    void nextStage() {
         stage = stage == Piece.Color.WHITE ? Piece.Color.BLACK : Piece.Color.WHITE;
         if(checkGameOver()) gameOver();
     }
 
-    public void updateField() {
+    void updateField() {
         for (JButton[] buttonLine : buttons) {
             for (JButton button : buttonLine) {
                 button.setEnabled(false);
@@ -78,7 +80,7 @@ public class Game extends JFrame {
         }
     }
 
-    public void updateField(LinkedList<Pair<Integer, Integer>> cells) {
+    void updateField(LinkedList<Pair<Integer, Integer>> cells) {
         for (JButton[] buttonLine : buttons) {
             for (JButton button : buttonLine) {
                 button.setEnabled(false);
