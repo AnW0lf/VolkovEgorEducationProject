@@ -20,7 +20,22 @@ class Game extends JFrame {
     }
 
     void start() {
-        createGameField();
+        startMenu();
+    }
+
+    private void startMenu() {
+        JPanel panel = new JPanel();
+        String message = "White goes first (not racism)";
+        JLabel label = new JLabel(message);
+        JButton reset = new JButton("Play");
+        reset.addActionListener(new ActionStart());
+        panel.setLayout(new GridLayout(4, 3, 1, 1));
+        panel.add(label);
+        panel.add(reset);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(240, 160);
+        setContentPane(panel);
+        setVisible(true);
     }
 
     private void createGameField() {
@@ -58,9 +73,24 @@ class Game extends JFrame {
         updateField();
     }
 
+    private void gameOver() {
+        JPanel panel = new JPanel();
+        String message = (stage == Piece.Color.WHITE ? "White" : "Black") + " player wins";
+        JLabel label = new JLabel(message);
+        JButton reset = new JButton("Play again");
+        reset.addActionListener(new ActionReset());
+        panel.setLayout(new GridLayout(4, 3, 1, 1));
+        panel.add(label);
+        panel.add(reset);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(240, 160);
+        setContentPane(panel);
+        setVisible(true);
+    }
+
     void nextStage() {
         stage = stage == Piece.Color.WHITE ? Piece.Color.BLACK : Piece.Color.WHITE;
-        if(checkGameOver()) gameOver();
+        if (checkGameOver()) gameOver();
     }
 
     void updateField() {
@@ -94,19 +124,6 @@ class Game extends JFrame {
             buttons[cell.getKey()][cell.getValue()].setEnabled(true);
     }
 
-    private class ActionSelect implements ActionListener {
-        private Pair<Integer, Integer> coordinate;
-
-        ActionSelect(Pair<Integer, Integer> coordinate) {
-            this.coordinate = coordinate;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            field.selection(coordinate);
-        }
-    }
-
     private boolean checkGameOver() {
         LinkedList<Pair<Integer, Integer>> movements = new LinkedList<>();
         Pair<Integer, Integer> king = null;
@@ -124,22 +141,27 @@ class Game extends JFrame {
         return movements.contains(king);
     }
 
-    private void gameOver() {
-        JPanel panel = new JPanel();
-        String message = (stage == Piece.Color.WHITE ? "White": "Black") + " player wins";
-        JLabel label = new JLabel(message);
-        JButton reset = new JButton("Play again");
-        reset.addActionListener(new ActionReset());
-        panel.setLayout(new GridLayout(2, 1, 0, 0));
-        panel.add(label);
-        panel.add(reset);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(240, 240);
-        setContentPane(panel);
-        setVisible(true);
+    private class ActionSelect implements ActionListener {
+        private Pair<Integer, Integer> coordinate;
+
+        ActionSelect(Pair<Integer, Integer> coordinate) {
+            this.coordinate = coordinate;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            field.selection(coordinate);
+        }
     }
 
     private class ActionReset implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            createGameField();
+        }
+    }
+
+    private class ActionStart implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             createGameField();
